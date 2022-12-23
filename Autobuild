@@ -1,0 +1,100 @@
+local id = ""
+local parentthing = workspace
+
+local e = game:GetObjects("rbxassetid://4572305378")[1]
+e.Parent = parentthing
+e:MoveTo(game.Players.LocalPlayer.Character.HumanoidRootPart.Position)
+
+for i,v in pairs(e:GetDescendants()) do
+   if v:IsA("BasePart") then
+       v.Anchored = true
+   end
+end
+
+local children = e:GetDescendants()
+for i, child in ipairs(children) do
+local success, message = pcall(function()
+       --top
+        local A_1 = "CreatePart"
+           local A_2 = "Normal"
+           local A_3 = child.CFrame
+           local A_4 = parentthing
+           local part = game.Players.LocalPlayer.Character["Building Tools"].SyncAPI.ServerEndpoint:InvokeServer(A_1, A_2, A_3, A_4)
+           local A_1 = "SetLocked"
+           local A_2 =
+           {
+            [1] = part
+           }
+           local A_3 = true
+           game.Players.LocalPlayer.Character["Building Tools"].SyncAPI.ServerEndpoint:InvokeServer(A_1, A_2, A_3)
+
+           local A_1 = "SyncResize"
+           local A_2 =
+           {
+            [1] =
+           {
+            ["Part"] = part,
+            ["CFrame"] = child.CFrame,
+            ["Size"] = child.Size
+           }
+           }
+           game.Players.LocalPlayer.Character["Building Tools"].SyncAPI.ServerEndpoint:InvokeServer(A_1, A_2)
+           local A_1 = "SyncColor"
+           local A_2 =
+           {
+            [1] =
+           {
+            ["Color"] = child.Color,
+            ["Part"] = part,
+            ["UnionColoring"] = true
+           }
+           }
+           game.Players.LocalPlayer.Character["Building Tools"].SyncAPI.ServerEndpoint:InvokeServer(A_1, A_2)
+           local A_1 = "SyncMaterial"
+           local A_2 =
+           {
+            [1] =
+           {
+            ["Part"] = part,
+            ["Material"] = child.Material
+           }
+           }
+           game.Players.LocalPlayer.Character["Building Tools"].SyncAPI.ServerEndpoint:InvokeServer(A_1, A_2)
+           local A_1 = "SyncMaterial"
+           local A_2 =
+           {
+            [1] =
+           {
+            ["Part"] = part,
+            ["Transparency"] = child.Transparency
+           }
+           }
+           game.Players.LocalPlayer.Character["Building Tools"].SyncAPI.ServerEndpoint:InvokeServer(A_1, A_2)
+           local A_1 = "SyncMaterial"
+           local A_2 =
+           {
+            [1] =
+           {
+            ["Reflectance"] = child.Reflectance,
+            ["Part"] = part
+           }
+           }
+           game.Players.LocalPlayer.Character["Building Tools"].SyncAPI.ServerEndpoint:InvokeServer(A_1, A_2)
+           local A_1 = "SyncAnchor"
+           local A_2 =
+           {
+            [1] =
+           {
+            ["Part"] = part,
+            ["Anchored"] = child.Anchored
+           }
+           }
+           game.Players.LocalPlayer.Character["Building Tools"].SyncAPI.ServerEndpoint:InvokeServer(A_1, A_2)
+       --bot
+       child:Destroy()
+       end)
+       if not success then
+        print("Part "..child.Name.." did an oopsie")
+       end
+end
+parentthing:FindFirstChildWhichIsA("Model"):Destroy()
